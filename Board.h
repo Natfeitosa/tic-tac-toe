@@ -13,12 +13,13 @@ public:
 	void display();
 	void reset();
 	void display_winner(Player player);
+	bool stale_mate();
 
 private:
 	std::unordered_map<int,Parts> board;
 	//bool valid_move(int move);
 	char ch(int position);
-
+	
 
 };
 
@@ -106,4 +107,13 @@ void Board::display_winner(Player player){
 	}
 	else
 		std::cout << "Congrats Circle won!\n";
+}
+
+bool Board::stale_mate() {
+	for (int i = 1; i < 10; i++) {
+		if (board[i] == EMPTY) {
+			return false;
+		}
+	}
+	return true;
 }

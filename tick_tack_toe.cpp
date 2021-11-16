@@ -3,13 +3,24 @@
 
 #include <iostream>
 #include "Board.h"
+std::string Turn(Player player) {
+    std::string p;
+    if (player == cross) {
+        p = "Cross";
+    }
+    else {
+        p = "Circle";
+    }
+    return p;
+}
 int main()
 {
     bool end = false;
     Board game;
     Player turn = cross;
     while (!end) {
-        std::cout << std::endl;
+        
+        std::cout <<"Current turn: "<<Turn(turn) <<std::endl;
         std::cout << std::endl;
         game.display();
         
@@ -47,6 +58,19 @@ int main()
                 turn = circle;
             else
                 turn = cross;
+        }
+        if (game.stale_mate()) {
+            std::cout << "No more available moves, want to play again?\n";
+            char again;
+            std::cin >> again;
+            if (again == 'y') 
+            {
+                game.reset();
+                turn = cross;
+            }
+            else {
+                end = true;
+            }
         }
         //end = true;
     }
